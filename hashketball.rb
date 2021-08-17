@@ -1,3 +1,5 @@
+require 'pry'
+
 # Write your code below game_hash
 def game_hash
   {
@@ -127,3 +129,88 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored (player_name)
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  combined_players = home_players.concat(away_players)
+  
+  found_player = combined_players.find do |player_array|
+    player_array[:player_name] == player_name
+  end
+
+  found_player[:points]
+end
+
+def shoe_size (player_name)
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  combined_players = home_players.concat(away_players)
+  
+  found_player = combined_players.find do |player_array|
+    player_array[:player_name] == player_name
+  end
+
+  found_player[:shoe]
+end
+
+def team_colors (proposed_name)
+  home_players = game_hash[:home]
+  away_players = game_hash[:away]
+
+  if proposed_name == "Brooklyn Nets"
+    ["Black", "White"]
+  elsif proposed_name == "Charlotte Hornets"
+    ["Turquoise", "Purple"]
+  else
+    null
+  end
+end
+
+def team_names
+  combined_hash=[]
+  
+  game_hash.each do |individual_team|
+    combined_hash << individual_team[1][:team_name]
+  end
+
+  combined_hash
+end
+
+def player_numbers(team)
+  home_team = game_hash[:home]
+  away_team = game_hash[:away]
+  numbers_array = []
+
+  if team == "Brooklyn Nets"
+    home_team[:players].each do |individual_player|
+      numbers_array << individual_player[:number]
+    end
+  elsif team == "Charlotte Hornets"
+    away_team[:players].each do |individual_player|
+      numbers_array << individual_player[:number]
+    end
+  end
+
+  numbers_array
+end
+
+def player_stats(proposed_player)
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  combined_players = home_players.concat(away_players)
+
+  player_stats = combined_players.find do |player|
+    player[:player_name] == proposed_player
+  end
+
+  player_stats
+end
+
+def big_shoe_rebounds
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  combined_players = home_players.concat(away_players)
+
+  biggest_shoes = combined_players.sort_by { |player| player[:shoe] }.last
+  biggest_shoes[:rebounds]
+end
